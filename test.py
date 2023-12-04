@@ -36,10 +36,12 @@ colors = {
     'other': '#43a8b5'
 }
 
-# Plotting function for demographic data
+# Custom plotting function
 def create_demographic_bar_chart(data, title, legend_labels, display_legend=False):
     fig = go.Figure()
     annotations = []
+    cumulative_percent = 0  # Track cumulative percentage for annotation positioning
+
     for i, (category, percentage) in enumerate(data.items()):
         fig.add_trace(go.Bar(
             x=[percentage],
@@ -47,23 +49,29 @@ def create_demographic_bar_chart(data, title, legend_labels, display_legend=Fals
             name=legend_labels[category],
             orientation='h',
             marker=dict(color=colors[category]),
-            text='',
-            hoverinfo='none'
+            hoverinfo='text',
+            hovertext=f"{category.capitalize()}: {percentage:.1f}%"
         ))
-        # Add annotations below the bar
-        annotations.append(dict(
-            x=sum(list(data.values())[:i+1]) - (percentage/2),  # Position at the center of each segment
-            y=-.5,  # Slightly below the bar
-            text=f"{percentage:.1f}%",
-            showarrow=False,
-            font=dict(color="Black")
-        ))
-    
+
+        # Determine the position for the annotation
+        if percentage > 5:  # Only show annotations for significant values
+            position = cumulative_percent + (percentage / 2)
+            cumulative_percent += percentage
+            annotations.append(dict(
+                x=position,
+                y=-0.1,  # Adjust this value as needed
+                text=f"{legend_labels[category]}: {percentage:.1f}%",
+                showarrow=False,
+                font=dict(size=12, color="black"),
+                xref="x",
+                yref="paper"
+            ))
+
     fig.update_layout(
         barmode='stack',
         title=title,
-        title_x=0.5,
-        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[0, 100]),
+        title_x=.5,
+        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
         annotations=annotations,
         showlegend=display_legend,
@@ -111,12 +119,12 @@ col1, col2 = st.columns(2)
 
 with col1:
     # Use Markdown with unsafe_allow_html to allow HTML content
-    st.markdown("<h3 style='text-align: center;'>Alamance Low EJ Risk</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='text-align: center;'>{selected_county} {selected_eji_category} EJ Risk</h3>", unsafe_allow_html=True)
     eji_fig = create_demographic_bar_chart(eji_demographics, '', legend_labels, display_legend=False)
     st.plotly_chart(eji_fig, use_container_width=True, config={'displayModeBar': False})
 
 with col2:
     # Use Markdown with unsafe_allow_html to allow HTML content
-    st.markdown("<h3 style='text-align: center;'>Alamance Surrounding Area</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h3 style='text-align: center;'>{selected_county} EJ Risk</h3>", unsafe_allow_html=True)
     overall_fig = create_demographic_bar_chart(overall_demographics, '', legend_labels)
     st.plotly_chart(overall_fig, use_container_width=True, config={'displayModeBar': False})
