@@ -54,7 +54,7 @@ def create_demographic_bar_chart(data, title, legend_labels, display_legend=Fals
         ))
 
         # Determine the position for the annotation
-        if percentage > 5:  # Only show annotations for significant values
+        if percentage > 7:  # Only show annotations for significant values
             position = cumulative_percent + (percentage / 2)
             cumulative_percent += percentage
             annotations.append(dict(
