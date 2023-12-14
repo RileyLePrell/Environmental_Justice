@@ -263,7 +263,7 @@ def create_random_points_within_polygon(polygon, num_points):
     return points
 
 # Function to create a PyDeck map layer for dot density
-def create_dot_density_layer(gdf, racial_total_columns, people_per_dot=1): #25 seems like a good balance for rural/urban
+def create_dot_density_layer(gdf, racial_total_columns, people_per_dot=25): #25 seems like a good balance for rural/urban
     layers = []
     for race, color in racial_colors.items():
         # Calculate the number of dots to represent the population
