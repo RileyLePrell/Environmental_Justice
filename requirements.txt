@@ -3,5 +3,4 @@ pandas
 geopandas
 plotly
 pydeck
-random
 shapely
