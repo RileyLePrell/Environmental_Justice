@@ -10,6 +10,71 @@ from shapely.geometry import Point
 # Set the page layout to wide
 st.set_page_config(layout="wide")
 
+# Insert Centered Title Image
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.write(' ')
+with col2:
+    st.image("ejpic.jpg", use_column_width=True, caption='“The fight for environmental justice is a fight for your life." - Image by Wake Forest University')
+with col3:
+    st.write(' ')
+
+# Title + Descriptions
+st.markdown("<p style='text-align: center; font-size: 16px; margin-bottom: -10px; color: grey;'>PUBLISHED DEC. 10, 2023, AT 12:00 AM</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size: 50px; margin-top: -20px;'>North Carolina Equity Atlas: Race and Risk Mapping</h1>", unsafe_allow_html=True)
+
+# Introduction Text
+st.markdown("""
+    <div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
+        Explore the intersection of race and environmental justice in North Carolina with this Streamlit Application.
+    """, unsafe_allow_html=True)
+
+# Author and GitHub Link
+st.markdown("""
+    <p style='text-align: center; font-size: 16px; color: grey; margin-top: 5px; margin-bottom: 5px;'>
+        By <a href="https://www.linkedin.com/in/riley-leprell/" style="color: black; text-decoration: underline; text-decoration-color: black; text-decoration-thickness: 2px;">Riley LePrell</a>
+    </p>
+    <p style='text-align: center; font-size: 16px; margin-top: 5px; color: grey;'>
+        Get Data on <a href="https://github.com/RileyLePrell/ejrace" style="color: black; text-decoration: underline; text-decoration-color: black; text-decoration-thickness: 2px;">Github</a>
+    </p>
+    """, unsafe_allow_html=True)
+
+#Bottom dotted separator
+st.markdown("""<hr style="border-top: 1px dotted #8c8b8b; max-width: 800px; margin-left: auto; margin-right: auto; margin-top: -5px;">""", unsafe_allow_html=True)
+
+# Additional Text with Embedded Link
+st.markdown("""
+    <div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
+        In the shadow of North Carolina's sprawling hog farms, communities grapple with the toxic legacy of environmental injustice, where the burden of agricultural pollution falls heaviest on those least able to bear it. This issue is particularly burdensome in Eastern North Carolina, where since the 1980s, industrial pork production has exploded in minority-dominated areas. The use of open-air feces lagoons and sprayers for animal waste has inflicted serious environmental harm, leading to contaminated wells, reduced property values, and various <a href="https://www.vox.com/future-perfect/23003487/north-carolina-hog-pork-bacon-farms-environmental-racism-black-residents-pollution-meat-industry">health issues</a>.
+    </div>
+    """, unsafe_allow_html=True)
+
+#Youtube Video for Hog Farm Index; Was going to use st.video, but couldn't find as much flexability with sizing...
+st.markdown("""
+    <div style='display: flex; justify-content: center; align-items: center; margin-top: 20px;'>
+        <div style='border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden; max-width: 480px;'>
+            <iframe width="480" height="270" src="https://www.youtube.com/embed/ZgonVE-atgQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# Caption for the Second Video
+st.markdown("""
+    <div style="text-align: center; font-size: 14px; margin-top: 10px; margin-bottom: 20px; color: grey;">
+        Courtesy of The Smell of Money/Shawn Bannon
+    </div>
+    """, unsafe_allow_html=True)
+
+#Additional Text :p
+st.markdown("""
+<div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
+    "Environmental Justice seeks equitable environmental protection for all communities, while environmental injustice occurs when minority and low-income areas disproportionately suffer from  <a href="https://www.atsdr.cdc.gov/placeandhealth/eji/index.html">environmental hazards</a>". A prime example of this can be seen in the text/video above about hog farms in North Carolina.
+    <br><br>
+    This Streamlit Application investigates the distribution of race across North Carolina's counties. As seen below, users can explore two maps: the left map illustrates the racial distribution in counties alongside levels of environmental injustice risk, while the right map focuses on the racial distribution in each county. Additionally, bar graphs below these maps further detail racial percentages, highlighting the link between environmental injustice and race. Please use the dropdown menus on the side to select different counties and EJ Concern Levels.
+</div>
+""", unsafe_allow_html=True)
+
 @st.cache_data
 def load_csv_fast(file_path):
     return pd.read_csv(file_path)
@@ -259,71 +324,6 @@ initial_view_state = pdk.ViewState(
     longitude=float(centroid_lon),
     zoom=9  #Nine seemed like a good balance for zoom level
 )
-
-# Insert Centered Title Image
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.write(' ')
-with col2:
-    st.image("ejpic.jpg", use_column_width=True, caption='“The fight for environmental justice is a fight for your life." - Image by Wake Forest University')
-with col3:
-    st.write(' ')
-
-# Title + Descriptions
-st.markdown("<p style='text-align: center; font-size: 16px; margin-bottom: -10px; color: grey;'>PUBLISHED DEC. 10, 2023, AT 12:00 AM</p>", unsafe_allow_html=True)
-st.markdown("<h1 style='text-align: center; font-size: 50px; margin-top: -20px;'>North Carolina Equity Atlas: Race and Risk Mapping</h1>", unsafe_allow_html=True)
-
-# Introduction Text
-st.markdown("""
-    <div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
-        Explore the intersection of race and environmental justice in North Carolina with this Streamlit Application.
-    """, unsafe_allow_html=True)
-
-# Author and GitHub Link
-st.markdown("""
-    <p style='text-align: center; font-size: 16px; color: grey; margin-top: 5px; margin-bottom: 5px;'>
-        By <a href="https://www.linkedin.com/in/riley-leprell/" style="color: black; text-decoration: underline; text-decoration-color: black; text-decoration-thickness: 2px;">Riley LePrell</a>
-    </p>
-    <p style='text-align: center; font-size: 16px; margin-top: 5px; color: grey;'>
-        Get Data on <a href="https://github.com/RileyLePrell/ejrace" style="color: black; text-decoration: underline; text-decoration-color: black; text-decoration-thickness: 2px;">Github</a>
-    </p>
-    """, unsafe_allow_html=True)
-
-#Bottom dotted separator
-st.markdown("""<hr style="border-top: 1px dotted #8c8b8b; max-width: 800px; margin-left: auto; margin-right: auto; margin-top: -5px;">""", unsafe_allow_html=True)
-
-# Additional Text with Embedded Link
-st.markdown("""
-    <div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
-        In the shadow of North Carolina's sprawling hog farms, communities grapple with the toxic legacy of environmental injustice, where the burden of agricultural pollution falls heaviest on those least able to bear it. This issue is particularly burdensome in Eastern North Carolina, where since the 1980s, industrial pork production has exploded in minority-dominated areas. The use of open-air feces lagoons and sprayers for animal waste has inflicted serious environmental harm, leading to contaminated wells, reduced property values, and various <a href="https://www.vox.com/future-perfect/23003487/north-carolina-hog-pork-bacon-farms-environmental-racism-black-residents-pollution-meat-industry">health issues</a>.
-    </div>
-    """, unsafe_allow_html=True)
-
-#Youtube Video for Hog Farm Index; Was going to use st.video, but couldn't find as much flexability with sizing...
-st.markdown("""
-    <div style='display: flex; justify-content: center; align-items: center; margin-top: 20px;'>
-        <div style='border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden; max-width: 480px;'>
-            <iframe width="480" height="270" src="https://www.youtube.com/embed/ZgonVE-atgQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Caption for the Second Video
-st.markdown("""
-    <div style="text-align: center; font-size: 14px; margin-top: 10px; margin-bottom: 20px; color: grey;">
-        Courtesy of The Smell of Money/Shawn Bannon
-    </div>
-    """, unsafe_allow_html=True)
-
-#Additional Text :p
-st.markdown("""
-<div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
-    "Environmental Justice seeks equitable environmental protection for all communities, while environmental injustice occurs when minority and low-income areas disproportionately suffer from  <a href="https://www.atsdr.cdc.gov/placeandhealth/eji/index.html">environmental hazards</a>". A prime example of this can be seen in the text/video above about hog farms in North Carolina.
-    <br><br>
-    This Streamlit Application investigates the distribution of race across North Carolina's counties. As seen below, users can explore two maps: the left map illustrates the racial distribution in counties alongside levels of environmental injustice risk, while the right map focuses on the racial distribution in each county. Additionally, bar graphs below these maps further detail racial percentages, highlighting the link between environmental injustice and race. Please use the dropdown menus on the side to select different counties and EJ Concern Levels.
-</div>
-""", unsafe_allow_html=True)
 
 # Display the main title and legend
 st.markdown(f"<h1 style='text-align: center;'>{selected_county}, {selected_state_abbr}</h1>", unsafe_allow_html=True)
