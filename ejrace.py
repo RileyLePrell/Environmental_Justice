@@ -38,7 +38,7 @@ st.markdown("""
     <p style='text-align: center; font-size: 16px; margin-top: 5px; color: grey;'>
         Get Data on <a href="https://github.com/RileyLePrell/ejrace" style="color: grey; text-decoration: underline; text-decoration-color: black; text-decoration-thickness: 2px;">Github</a>
     </p>
-    """, unsafe_allow_html=True))
+    """, unsafe_allow_html=True)
 
 #Bottom dotted separator
 st.markdown("""<hr style="border-top: 1px dotted #8c8b8b; max-width: 800px; margin-left: auto; margin-right: auto; margin-top: -5px;">""", unsafe_allow_html=True)
