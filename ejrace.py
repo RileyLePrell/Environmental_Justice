@@ -166,7 +166,7 @@ merged_gdf['INTPTLAT'] = merged_gdf['INTPTLAT'].astype(float)
 merged_gdf['INTPTLON'] = merged_gdf['INTPTLON'].apply(lambda x: float(x.replace('+', '')))
 
 #Grabbed boundaries from county + state shapefiles; NC's StateFP is always 37 & have county_boundary to be whatev select_county is  
-selected_county_boundary = county_boundaries_gdf[county_boundaries_gdf['NAME'] == selected_county]
+selected_county_boundary = county_boundaries_gdf[(county_boundaries_gdf['NAME'] == selected_county) & (county_boundaries_gdf['STATEFP'] == '37')]
 nc_state_boundary = state_boundaries_gdf[state_boundaries_gdf['STATEFP'] == "37"]
 
 #Set Colors for Dot Density Mapping They Match the Colors Above
@@ -247,7 +247,7 @@ def create_county_outline_layer(gdf):
     )
 
 # Get centroid coordinates of the selected county
-selected_county_data = county_boundaries_gdf[county_boundaries_gdf['NAME'] == selected_county]
+selected_county_data = county_boundaries_gdf[(county_boundaries_gdf['NAME'] == selected_county) & (county_boundaries_gdf['STATEFP'] == '37')]
 centroid_lat, centroid_lon = 0, 0
 if not selected_county_data.empty:
     centroid_lat = selected_county_data.iloc[0]['INTPTLAT']
