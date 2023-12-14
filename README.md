@@ -4,7 +4,7 @@
 [Explore the Streamlit App](https://ejexplorer.streamlit.app/)
 
 ## Introduction
-Hey! Over the past year, I've been involved in researching Environmental Justice Areas in North Carolina. My primary focus has been on replicating other state agencies' Environmental Justice Indexes, which calculate the extent of environmental injustice a geography faces, and implementing it for North Carolina. This application was inspired by two recent discoveries: firstly, a racial dot density/redlining website created by FiveThirtyEight, and secondly, a 36-indicator EJ index developed by the CDC. I've melded the two into this application!
+Hey! Over the past year, I've been involved in researching Environmental Justice Areas in North Carolina. My primary focus has been on replicating other state agencies' Environmental Justice Indexes, which calculate the extent of environmental injustice a geography faces, and implementing them for North Carolina. This application was inspired by two recent discoveries: firstly, a racial dot density/redlining website created by FiveThirtyEight, and secondly, a 36-indicator EJ index developed by the CDC. I've melded the two into this application!
 
 The 36-Indicator Shapefile includes environmental, demographic, health, and social concerns, ranking every tract in the US from 0 - 1 based on their level of Environmental Injustice concern. In my app, I've focused exclusively on North Carolina; trying to do all of the US would involve a very large dataset and make the functionality of this app decrease.
 
