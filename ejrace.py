@@ -252,11 +252,6 @@ racial_totals_mapping = {
     'other': 'census_r_7'
 }
 
-@st.cache_data
-def create_overall_county_layer(selected_county):
-    overall_county_gdf = merged_gdf[merged_gdf['eji_rank_5'] == selected_county]
-    return create_dot_density_layer(overall_county_gdf, racial_totals_mapping)
-
 # Function to generate random points within a polygon
 def create_random_points_within_polygon(polygon, num_points):
     points = []
@@ -268,7 +263,7 @@ def create_random_points_within_polygon(polygon, num_points):
     return points
 
 # Function to create a PyDeck map layer for dot density
-def create_dot_density_layer(gdf, racial_total_columns, people_per_dot=10): #5 seems like a good balance for rural/urban
+def create_dot_density_layer(gdf, racial_total_columns, people_per_dot=25): #25 seems like a good balance for rural/urban
     layers = []
     for race, color in racial_colors.items():
         # Calculate the number of dots to represent the population
@@ -292,7 +287,7 @@ def create_dot_density_layer(gdf, racial_total_columns, people_per_dot=10): #5 s
                 data=layer_data,
                 get_position='position',
                 get_color=color,
-                get_radius= 40,  # adjust size of dots
+                get_radius= 125,  # adjust size of dots
             )
             layers.append(layer)
     return layers
@@ -310,6 +305,11 @@ def create_county_outline_layer(gdf):
         extruded=True,
         line_width_min_pixels=1,
     )
+
+@st.cache_data
+def create_overall_county_layer(selected_county):
+    overall_county_gdf = merged_gdf[merged_gdf['eji_rank_5'] == selected_county]
+    return create_dot_density_layer(overall_county_gdf, racial_totals_mapping)
 
 # Get centroid coordinates of the selected county
 selected_county_data = county_boundaries_gdf[(county_boundaries_gdf['NAME'] == selected_county) & (county_boundaries_gdf['STATEFP'] == '37')]
