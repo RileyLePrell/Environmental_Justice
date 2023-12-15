@@ -20,17 +20,17 @@ with col2:
 with col3:
     st.write(' ')
 
-# Title + Descriptions
+# Title + Descriptions; Used HTML/CSS for additional customization; I wanted specific colors, margin to reduce white space and saw most customization through this
 st.markdown("<p style='text-align: center; font-size: 16px; margin-bottom: -10px; color: grey;'>PUBLISHED DEC. 10, 2023, AT 12:00 AM</p>", unsafe_allow_html=True)
-st.markdown("<h1 style='text-align: center; font-size: 50px; margin-top: -20px;'>North Carolina Equity Atlas: Race and Risk Mapping</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size: 50px; margin-top: -20px; margin-bottom: -20px;'>North Carolina Equity Atlas: Race and Risk Mapping</h1>", unsafe_allow_html=True)
 
-# Introduction Text
+#Small Blurb Text
 st.markdown("""
     <div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
         Explore the intersection of race and environmental justice in North Carolina with this Streamlit Application.
     """, unsafe_allow_html=True)
 
-# Author and GitHub Link
+#Linkedin + Github Link :p
 st.markdown("""
     <p style='text-align: center; font-size: 16px; color: grey; margin-top: 5px; margin-bottom: 5px;'>
         By <a href="https://www.linkedin.com/in/riley-leprell/" style="color: grey; text-decoration: underline; text-decoration-color: black; text-decoration-thickness: 2px;">Riley LePrell</a>
@@ -50,7 +50,7 @@ st.markdown("""
     </div>
     """, unsafe_allow_html=True)
 
-#Youtube Video for Hog Farm Index; Was going to use st.video, but couldn't find as much flexability with sizing...
+#Youtube Video for Hog Farm Index; Was going to use 3 columns and st.video... but didn't look as good. 
 st.markdown("""
     <div style='display: flex; justify-content: center; align-items: center; margin-top: 20px;'>
         <div style='border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden; max-width: 480px;'>
@@ -71,18 +71,19 @@ st.markdown("""
 <div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
     "Environmental Justice seeks equitable environmental protection for all communities, while environmental injustice occurs when minority and low-income areas disproportionately suffer from  <a href="https://www.atsdr.cdc.gov/placeandhealth/eji/index.html">environmental hazards</a>". A prime example of this can be seen in the text/video above about hog farms in North Carolina.
     <br><br>
-    This Streamlit Application investigates the distribution of race across North Carolina's counties. As seen below, users can explore two maps: the left map illustrates the racial distribution in counties alongside levels of environmental injustice risk, while the right map focuses on the racial distribution in each county. Additionally, bar graphs below these maps further detail racial percentages, highlighting the link between environmental injustice and race. Please use the dropdown menus on the side to select different counties and EJ Concern Levels.
+    This Streamlit Application investigates the distribution of race across North Carolina's counties. As seen below, users can explore two maps: the left map illustrates the racial distribution in counties alongside levels of environmental injustice risk, while the right map focuses on the racial distribution in each county. Additionally, bar graphs below these maps further detail racial percentages, highlighting the link between environmental injustice and race. Please use the dropdown menus on the side to select different counties and EJ Concern Levels. Notice how in a majority of the counties as Environmental Injustice Concern Level rises so does the % minority. 
 </div>
 """, unsafe_allow_html=True)
 
+#Caching data 
 @st.cache_data
-def load_csv_fast(file_path):
+def load_csv_SPEEDY(file_path):
     return pd.read_csv(file_path)
 
-#Load EJ_CSV Data w/ cache
-df = load_csv_fast('ej_nc.csv')
+#Loading EJ_CSV Data w/ cache
+df = load_csv_SPEEDY('ej_nc.csv')
 
-#Define EJI Risk Categories & Ranges
+#Defining EJI Risk Categories & Ranges
 eji_categories = {
     'Minor': (0, 0.25),
     'Moderate': (0.25, 0.5),
@@ -90,7 +91,7 @@ eji_categories = {
     'Severe': (0.75, 1)
 }
 
-#Create Custom Color's for Each Race
+#Assigning Custom Color's for Each Race
 colors = {
     'white': '#ffb262',
     'black': '#129e56',
@@ -99,7 +100,7 @@ colors = {
     'other': '#43a8b5'
 }
 
-#Create Labels for Legend below Title
+#Creating Labels for Legend below Title
 legend_labels = {'white': 'White', 'black': 'Black', 'latino': 'Latino', 'asian': 'Asian', 'other': 'Other' }
 
 #Function that displays % x Race from any Data Source
@@ -166,7 +167,7 @@ def create_demographic_bar_chart(data, title, legend_labels, display_legend=Fals
     else:
         fig.add_annotation(text="There is no population for the seleceted County/EJI Concern Combination",
                            xref="paper", yref="paper",
-                           x=0.5, y=0.5, showarrow=False,
+                           x=position, y=-.1, showarrow=False,
                            font=dict(size=16))
     return fig
 
@@ -297,8 +298,8 @@ def create_county_outline_layer(gdf):
     return pdk.Layer(
         "GeoJsonLayer",
         data=gdf,
-        get_fill_color=[0, 0, 0, 20],  # semi-transparent fill
-        get_line_color=[0, 0, 0, 150],  # line color
+        get_fill_color=[0, 0, 0, 20],  
+        get_line_color=[0, 0, 0, 150],  
         pickable=True,
         stroked=True,
         filled=True,
@@ -306,6 +307,7 @@ def create_county_outline_layer(gdf):
         line_width_min_pixels=1,
     )
 
+#Function to for displaying racial 4 county 
 @st.cache_data
 def create_overall_county_layer(selected_county):
     overall_county_gdf = merged_gdf[merged_gdf['eji_rank_5'] == selected_county]
@@ -342,7 +344,7 @@ with col1:
     # Dot density map for the selected EJI category within the selected county
     st.markdown(f"<h3 style='text-align: center;'>{selected_county} {selected_eji_category} EJ Risk</h3>", unsafe_allow_html=True)
     selected_eji_gdf = merged_gdf[(merged_gdf['eji_ran_13'] >= eji_categories[selected_eji_category][0]) &
-                                  (merged_gdf['eji_ran_13'] < eji_categories[selected_eji_category][1])]
+                                  (merged_gdf['eji_ran_13'] < eji_categories[selected_eji_category][1])] #Filter for EJI_Categories 
     selected_eji_gdf = selected_eji_gdf[selected_eji_gdf.within(selected_county_boundary.geometry.unary_union)]
     eji_layers = create_dot_density_layer(selected_eji_gdf, racial_totals_mapping)
     county_outline_layer = create_county_outline_layer(selected_county_boundary)
@@ -376,4 +378,7 @@ with col2:
     overall_fig = create_demographic_bar_chart(overall_demographics, '', legend_labels)
     st.plotly_chart(overall_fig, use_container_width=True, config={'displayModeBar': False})
 
-
+st.markdown("""
+    <div style="text-align: justify; font-size: 18px; max-width: 800px; margin: auto;">
+        Please Note Some County + EJ Concern Combos Result with 0 Selected Census Tracts
+    """, unsafe_allow_html=True)
