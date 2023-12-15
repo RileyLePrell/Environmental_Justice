@@ -21,7 +21,7 @@ I utilized data from several different sources for this project:
 2. **US Census TIGERLINE**:
    - I used this to obtain state, county, and census tract boundaries.
 
-There wasn't much data preparation done before uploading it into GitHub. Most of the data cleansing, such as filtering for NC specific geographies, was done within the Python file.
+There wasn't too much data prep before throwing it into python. While in Python I spliced up some of the data only getting the important stuff such as in the Census_Tract shapefile only pulling North Carolina ones. 
 
 ## Future Work
 Currently, the app is only for North Carolina counties. The application is focused only on North Carolina due to some challenges I encountered in loading the maps. My goal is to expand this to cover every county in the US. However, before I can do that, I need to find ways to speed up the process, especially considering the large volume of data involved. This optimization will be my primary focus in the next phase of development. I am also running into a problem with the map1 output; some of the county + ej combo's do not show the dot density mapping... not sure why have been messing around for the past day, but will continue to look at this for the future. 
