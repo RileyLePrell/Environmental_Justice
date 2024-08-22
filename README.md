@@ -1,5 +1,3 @@
-lso# ejracial
-
 ## Streamlit Application Link
 [Explore the Streamlit App](https://environmentaljustice.streamlit.app/)
 
