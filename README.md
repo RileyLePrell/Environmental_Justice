@@ -1,7 +1,7 @@
 lso# ejracial
 
 ## Streamlit Application Link
-[Explore the Streamlit App](https://ejexplorer.streamlit.app/)
+[Explore the Streamlit App](https://environmentaljustice.streamlit.app/)
 
 ## Introduction
 Hey! Over the past year, I've been involved in researching Environmental Justice Areas in North Carolina. My primary focus has been on replicating other state agencies' Environmental Justice Indexes, which calculate the extent of environmental injustice a geography faces, and implementing them for North Carolina. This application was inspired by two recent discoveries: firstly, a racial dot density/redlining website created by FiveThirtyEight, and secondly, a 36-indicator EJ index developed by the CDC. I've melded the two into this application!
